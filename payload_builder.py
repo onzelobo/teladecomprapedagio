@@ -28,7 +28,7 @@ def build_payload(data: Dict[str, Any]) -> Dict[str, Any]:
                 "route": [
                     {
                         "idDocumentoTransporte": int(data["dt"]),
-                            "cnpj": os.getenv("EMPRESA_CNPJ", "42278291000124"),
+                        "cnpj": os.getenv("EMPRESA_CNPJ", "42278291000124"),
                         "placa": data["placa"].upper(),
                         "neixos": str(data["eixos"]),
                         "fimVigencia": fim.strftime("%Y%m%d"),
