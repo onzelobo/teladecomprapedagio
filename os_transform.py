@@ -1,9 +1,11 @@
+from typing import Dict
+
 def gerar_dt(os_str: str) -> str:
     """
     Converte a Ordem de Serviço (OS) no Documento de Transporte (DT).
     Exemplo: 4SSA128276A -> 4000312876 (SSA vira 0003)
     """
-    mapa_portos = {
+    mapa_portos: Dict[str, str] = {
         "FOR": "0001", "REC": "0002", "SSA": "0003",
         "SSZ": "0004", "ITJ": "0005", "RIO": "0006", "MAO": "0007"
     }
