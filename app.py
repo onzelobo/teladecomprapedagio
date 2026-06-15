@@ -21,7 +21,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="Sistema VPO Monsanto - Velozter", lifespan=lifespan)
 
 @app.middleware("http")
-async def add_process_time_header(request: Request, call_next: Callable[[Request], Any]) -> Response:
+async def add_request_id_header(request: Request, call_next: Callable[[Request], Any]) -> Response:
     # Gera um ID de transação único por requisição para rastreabilidade
     request.state.request_id = str(uuid.uuid4())
     response: Response = await call_next(request)
