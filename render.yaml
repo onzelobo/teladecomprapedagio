@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: teladecomprapedagio
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    # Usamos o gunicorn que adicionamos nos requirements para melhor performance em produção
+    startCommand: gunicorn -w 4 -k uvicorn.workers.UvicornWorker app:app --bind 0.0.0.0:$PORT
+    autoDeploy: true

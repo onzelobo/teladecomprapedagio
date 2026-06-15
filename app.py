@@ -1,5 +1,5 @@
 import uvicorn
-from fastapi import FastAPI, Request, Response
+from fastapi import FastAPI, Request, Response, HTTPException
 from fastapi.responses import FileResponse
 from vpo import router as vpo_router
 import os
@@ -7,6 +7,19 @@ import httpx
 import uuid
 from contextlib import asynccontextmanager
 from typing import Any, Callable, Dict
+from pathlib import Path
+import logging
+
+# Configuração básica de logging para produção
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
+
+logger = logging.getLogger(__name__)
+
+BASE_DIR = Path(__file__).resolve().parent
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -34,7 +47,11 @@ app.include_router(vpo_router)
 @app.get("/")
 async def root() -> FileResponse:
     """Serve a página inicial do transportador."""
-    return FileResponse("templates/index.html")
+    template_path = BASE_DIR / "templates" / "index.html"
+    if not template_path.exists():
+        logger.error(f"Arquivo não encontrado: {template_path}")
+        raise HTTPException(status_code=404, detail="Página de interface não encontrada no servidor.")
+    return FileResponse(template_path)
 
 @app.get("/health")
 async def health() -> Dict[str, str]:
