@@ -8,7 +8,7 @@ import logging
 import uuid
 
 logger = logging.getLogger(__name__)
-router = APIRouter(prefix="/api/vpo", tags=["Vale Pedágio"])
+router = APIRouter(prefix="/vpo", tags=["Vale Pedágio"])
 
 class Localizacao(BaseModel):
     cidade: str = Field(..., examples=["SAO PAULO"])

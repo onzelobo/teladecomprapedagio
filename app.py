@@ -47,7 +47,7 @@ app.include_router(vpo_router)
 @app.get("/")
 async def root() -> FileResponse:
     """Serve a página inicial do transportador."""
-    template_path = BASE_DIR / "templates" / "index.html"
+    template_path = BASE_DIR / "index.html"
     if not template_path.exists():
         logger.error(f"Arquivo não encontrado: {template_path}")
         raise HTTPException(status_code=404, detail="Página de interface não encontrada no servidor.")
