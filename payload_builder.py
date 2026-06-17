@@ -33,6 +33,7 @@ def build_payload(data: Dict[str, Any]) -> Dict[str, Any]:
                         "neixos": str(data["eixos"]),
                         "fimVigencia": fim.strftime("%Y%m%d"),
                         "inicioVigencia": hoje.strftime("%Y%m%d"),
+                        "observacao": f"Email: {data['email']}",
                         "positions": {
                             "position": [
                                 origem,

@@ -18,6 +18,7 @@ class CompraRequest(BaseModel):
     placa: str = Field(..., examples=["ABC1234"])
     os: str = Field(..., examples=["4SSA128276A"])
     eixos: int = Field(..., gt=0, examples=[3])
+    email: str = Field(..., examples=["transportador@email.com"])
     origem: Localizacao
     destino: Localizacao
 

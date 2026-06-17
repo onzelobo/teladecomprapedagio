@@ -31,7 +31,7 @@ async def lifespan(app: FastAPI):
         app.state.http_client = client
         yield
 
-app = FastAPI(title="Sistema VPO Monsanto - Velozter", lifespan=lifespan)
+app = FastAPI(title="VBR X LOG-IN COMPRA DE VALE PEDÁGIO", lifespan=lifespan)
 
 @app.middleware("http")
 async def add_request_id_header(request: Request, call_next: Callable[[Request], Any]) -> Response:
