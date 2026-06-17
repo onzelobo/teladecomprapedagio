@@ -8,6 +8,10 @@ def build_payload(data: Dict[str, Any]) -> Dict[str, Any]:
     hoje = datetime.now()
     fim = hoje + timedelta(days=7)
 
+    cnpj_empresa = os.getenv("EMPRESA_CNPJ")
+    if not cnpj_empresa:
+        raise ValueError("A variável de ambiente EMPRESA_CNPJ não foi configurada.")
+
     origem: Dict[str, Any] = {
         "country": "BR",
         "state": data["origem"]["uf"].upper(),
@@ -28,7 +32,7 @@ def build_payload(data: Dict[str, Any]) -> Dict[str, Any]:
                 "route": [
                     {
                         "idDocumentoTransporte": int(data["dt"]),
-                        "cnpj": os.getenv("EMPRESA_CNPJ", "42278291000124"),
+                        "cnpj": cnpj_empresa,
                         "placa": data["placa"].upper(),
                         "neixos": str(data["eixos"]),
                         "fimVigencia": fim.strftime("%Y%m%d"),

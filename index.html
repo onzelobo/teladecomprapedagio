@@ -11,10 +11,9 @@
         <h1 class="text-xl font-black text-[#00473D] text-center mb-6 uppercase tracking-tighter border-b pb-4">VBR X LOG-IN <br><span class="text-sm font-light text-gray-500">Compra de Vale Pedágio</span></h1>
         
         <form id="vpoForm" class="space-y-4">
-            <div class="grid grid-cols-2 gap-4">
-                <input type="text" id="placa" placeholder="PLACA" required class="border p-2 rounded uppercase focus:ring-2 focus:ring-[#00473D] outline-none">
-                <input type="number" id="eixos" placeholder="EIXOS" required class="border p-2 rounded focus:ring-2 focus:ring-[#00473D] outline-none">
-            </div>
+            <!-- Campo de Placa -->
+            <input type="text" id="placa" placeholder="PLACA" required class="w-full border p-2 rounded uppercase focus:ring-2 focus:ring-[#00473D] outline-none">
+            <!-- Eixos removido da UI, valor fixo para 5 no backend -->
             <input type="text" id="os" placeholder="ORDEM DE SERVIÇO (Ex: 4SSA...)" required class="w-full border p-2 rounded uppercase focus:ring-2 focus:ring-[#00473D] outline-none">
             <input type="email" id="email" placeholder="E-MAIL DO RESPONSÁVEL" required class="w-full border p-2 rounded lowercase focus:ring-2 focus:ring-[#00473D] outline-none">
             
@@ -53,7 +52,7 @@
             const body = {
                 placa: document.getElementById('placa').value,
                 os: document.getElementById('os').value,
-                eixos: parseInt(document.getElementById('eixos').value),
+                eixos: 5, // Valor fixo de 5 eixos
                 email: document.getElementById('email').value,
                 origem: { cidade: document.getElementById('orig_c').value, uf: document.getElementById('orig_uf').value },
                 destino: { cidade: document.getElementById('dest_c').value, uf: document.getElementById('dest_uf').value }

@@ -5,7 +5,10 @@ import logging
 from typing import Any, Dict, Optional
 from dotenv import load_dotenv
 
-load_dotenv()
+# Carrega .env apenas se o arquivo existir (desenvolvimento local)
+if os.path.exists(".env"):
+    load_dotenv()
+
 logger = logging.getLogger(__name__)
 
 _cached_token: Optional[str] = None
@@ -19,13 +22,11 @@ async def get_token(client: httpx.AsyncClient, request_id: str = "internal") -> 
         return _cached_token
 
     url = os.getenv("AUTH_API_URL")
-    if not url:
-        raise ValueError("A variável de ambiente AUTH_API_URL não foi configurada.")
-
     client_id = os.getenv("CLIENT_ID")
     client_secret = os.getenv("CLIENT_SECRET")
-    if not client_id or not client_secret:
-        raise ValueError("Variáveis de ambiente CLIENT_ID ou CLIENT_SECRET não configuradas.")
+
+    if not all([url, client_id, client_secret]):
+        raise ValueError("Configurações de autenticação (URL, ID ou Secret) ausentes nas variáveis de ambiente.")
 
     data: Dict[str, str] = {
         "client_id": client_id,

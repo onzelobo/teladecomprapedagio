@@ -17,7 +17,6 @@ class Localizacao(BaseModel):
 class CompraRequest(BaseModel):
     placa: str = Field(..., examples=["ABC1234"])
     os: str = Field(..., examples=["4SSA128276A"])
-    eixos: int = Field(..., gt=0, examples=[3])
     email: str = Field(..., examples=["transportador@email.com"])
     origem: Localizacao
     destino: Localizacao
@@ -32,8 +31,9 @@ async def comprar_vpo(request: Request, compra_data: CompraRequest) -> Dict[str,
         # 1. Transformação OS -> DT
         dt = gerar_dt(compra_data.os)
         
-        # 2. Construção do payload
         dados = compra_data.model_dump()
+        # 2. Construção do payload
+        dados["eixos"] = 5 # Eixos fixo em 5
         dados["dt"] = dt
         payload = build_payload(dados)
         
